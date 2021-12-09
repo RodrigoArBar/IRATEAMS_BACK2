@@ -176,12 +176,14 @@ app.put("/usuarios", function(request, response)
     let fechaNacimiento= request.body.fechaNacimiento;
     let telefono= request.body.telefono;
     let urlFoto= request.body.urlFoto;
+    let username = request.body.username;
+    let mail = request.body.mail
 
     let id = request.body.id_usuario
 
-    let params=[password, nombreCompleto, fechaNacimiento, telefono, urlFoto, id]
+    let params=[username,mail, password, nombreCompleto, fechaNacimiento, telefono, urlFoto, id]
 
-    let sql = "UPDATE IRATEAMS.usuario SET password = ?, nombreCompleto = ?, fechaNacimiento = ?,  telefono = ?, urlFoto = ? WHERE id_usuario= ?";
+    let sql = "UPDATE IRATEAMS.usuario SET username = ?, mail = ?, password = ?, nombreCompleto = ?, fechaNacimiento = ?,  telefono = ?, urlFoto = ? WHERE id_usuario= ?";
     
     connection.query(sql, params, function(err, result)
     {
@@ -399,7 +401,7 @@ app.put("/eventos", function(request, response)
 
     let respuesta;
 
-
+    
     // let id = request.body.id
     let deporte = request.body.deporte
     let titulo = request.body.titulo
@@ -469,7 +471,7 @@ app.delete("/eventos", function(request, response)
         else{
                 console.log("Evento eliminado")
                 console.log(result)
-                respuesta = {error:false, msg:"Evento eliminado", resultado:result}
+                respuesta = {error:false, msg:"Evento eliminado", resultado:evento}
                 response.status(500).send(respuesta);
                
                 
