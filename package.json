@@ -1,0 +1,24 @@
+{
+  "name": "irateams_back2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "apiIrateams.js",
+  "scripts": {
+    "start": "node apiIrateams.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodrigoArBar/IRATEAMS_BACK2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RodrigoArBar/IRATEAMS_BACK2/issues"
+  },
+  "homepage": "https://github.com/RodrigoArBar/IRATEAMS_BACK2#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3"
+  }
+}
