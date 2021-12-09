@@ -364,15 +364,16 @@ app.post("/eventos", function(request, response)
                     localidad: request.body.localidad,
                     descripcion: request.body.descripcion,
                     material: request.body.material,
-                    pago: request.body.pago
+                    pago: request.body.pago,
+                    urlFotoEvento: request.body.urlFotoEvento
 
     }
 
 
 
 
-    let sql = `INSERT INTO evento(deporte, titulo, id_creador, nPersSolicitadas, fecha, direccion, localidad, descripcion, material, pago ) 
-                VALUES(\"${request.body.deporte}\", \"${request.body.titulo}\", \"${request.body.id_creador}\", \"${request.body.nPersSolicitadas}\", \"${request.body.fecha}\", \"${request.body.direccion}\", \"${request.body.localidad}\", \"${request.body.descripcion}\", \"${request.body.material}\", \"${request.body.pago}\")`
+    let sql = `INSERT INTO evento(deporte, titulo, id_creador, nPersSolicitadas, fecha, direccion, localidad, descripcion, material, pago, urlFotoEvento) 
+                VALUES(\"${request.body.deporte}\", \"${request.body.titulo}\", \"${request.body.id_creador}\", \"${request.body.nPersSolicitadas}\", \"${request.body.fecha}\", \"${request.body.direccion}\", \"${request.body.localidad}\", \"${request.body.descripcion}\", \"${request.body.material}\", \"${request.body.pago}\", \"${request.body.urlFotoEvento}\")`
 
     connection.query(sql, function(err,result)
     {
@@ -411,6 +412,7 @@ app.put("/eventos", function(request, response)
     let descripcion = request.body.descripcion
     let material = request.body.material
     let pago = request.body.pago
+    let urlFotoEvento = request.body.urlFotoEvento
     let id_evento = request.body.id_evento
 
     let params = [  deporte,
@@ -422,11 +424,12 @@ app.put("/eventos", function(request, response)
                     localidad,
                     descripcion,
                     material,
-                    pago
+                    pago,
+                    urlFotoEvento
                     ]
     
     
-    let sql = "UPDATE evento SET deporte = COALESCE(?,evento.deporte), titulo = COALESCE(?,evento.titulo), id_creador = COALESCE(?, id_creador), nPersSolicitadas = COALESCE(?, evento.nPersSolicitadas), fecha = COALESCE(?, evento.fecha), direccion = COALESCE(?, evento.direccion), localidad = COALESCE(?, evento.localidad), descripcion = COALESCE(?, evento.descripcion), material = COALESCE(?, evento.material), pago = COALESCE(?, evento.pago) WHERE id_evento="+id_evento
+    let sql = "UPDATE evento SET deporte = COALESCE(?,evento.deporte), titulo = COALESCE(?,evento.titulo), id_creador = COALESCE(?, id_creador), nPersSolicitadas = COALESCE(?, evento.nPersSolicitadas), fecha = COALESCE(?, evento.fecha), direccion = COALESCE(?, evento.direccion), localidad = COALESCE(?, evento.localidad), descripcion = COALESCE(?, evento.descripcion), material = COALESCE(?, evento.material), pago = COALESCE(?, evento.pago), urlFotoEvento = COALESCE(?, evento.urlFotoEvento) WHERE id_evento="+id_evento
           
     
     
@@ -665,7 +668,7 @@ app.post("/mensajes",
         })
     })
 
-    
+
 // app.delete("/mensajes/:id",
 // function(request, response)
 // {
