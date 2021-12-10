@@ -485,6 +485,60 @@ app.delete("/eventos", function(request, response)
 
 })
 
+app.get("/filtroHome", function(request, response)
+{  
+    let where = ""
+    let filtro1 = request.body.filtro1
+    let filtro2 = request.body.filtro2
+    let filtro3 = request.body.filtro3
+    let params = []
+    
+    if (filtro1 != ""&& filtro1 != null){
+        if(where === ""){
+            where = " WHERE deporte =  ?"
+        } else{
+            where = ""
+        }
+            // console.log(filtro1)
+        params.push(filtro1);
+    }
+    if (filtro2 != "" && filtro2 != null){
+        if (where === ""){
+            where = " WHERE fecha = ?"
+        } else {
+            where += " AND fecha = ?"
+        }
+        params.push(filtro2)
+    }
+    if (filtro3 != "" && filtro3 != null){
+        if (where === ""){
+            where = " WHERE localidad = ?"
+        } else {
+            where += " AND localidad = ?"
+        }
+        params.push(filtro3)
+    }
+    let sql = "SELECT * FROM IRATEAMS.evento" + where 
+
+    connection.query(sql, params, function(err, result)
+    {
+        if(err){
+            console.error(err);
+            respuesta = {error:true,msg:"Error al conectar con la base de datos", resultado:err};
+            response.status(500).send(respuesta);
+        }
+        else{
+            if (result.length === 0) {
+                respuesta = {error:false,msg:"Error al obtener datos del filtro", resultado:result}
+                response.status(404).send(respuesta);
+            } else {
+                respuesta = {error:false,msg:"filtro realizado", resultado:result}
+                response.status(200).send(respuesta);
+            }
+        }
+    });
+})
+
 
 
 
