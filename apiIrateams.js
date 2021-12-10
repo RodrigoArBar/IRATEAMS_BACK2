@@ -489,6 +489,39 @@ app.delete("/eventos", function(request, response)
 
 
 // ENDPOINTS APUNTADOS
+
+// GET apuntados
+app.get("/apuntados", function(request, response)
+{
+    let id = request.query.id;
+    let params =[id];
+    let sql;
+    if(request.query.id == null){
+        sql = "SELECT * FROM IRATEAMS.apuntados"
+    }
+    else {
+        sql = "SELECT * FROM IRATEAMS.apuntados WHERE id_evento=?" 
+    }
+
+    connection.query(sql, params, function(err, result)
+    {
+        if(err){
+            console.error(err);
+            respuesta = {error:true,msg:"Error al conectar con la base de datos", resultado:err};
+            response.status(500).send(respuesta);
+        }
+        else{
+            if (result.length == 0) {
+                respuesta = {error:false,msg:"Error al obtener apuntados", resultado:result}
+                response.status(404).send(respuesta);
+            } else {
+                respuesta = {error:false,msg:" get Apuntado/s", resultado:result}
+                response.status(200).send(respuesta);
+            }
+        }
+    });
+});
+
 // POST apuntados
 
 app.post("/apuntados", function(request, response)
@@ -582,7 +615,7 @@ app.get("/chats",
 
 app.post("/chats",
     function (request, response) {
-        sql = `SELECT * FROM IRATEAMS.chat WHERE (id_user1 = ${request.body.id1} AND id_user2 = ${request.body.id2}) OR (id_user2 = ${request.body.id1} AND id_user1 = ${request.body.id2})`;
+        sql = `SELECT * FROM IRATEAMS.chat WHERE (id_user1 = ${request.body.id1} AND id_user2 = ${request.body.id2}) OR (id_user2 = ${request.body.id2} AND id_user1 = ${request.body.id1})`;
         
         connection.query(sql, function (err, result) {
             if (err) {
