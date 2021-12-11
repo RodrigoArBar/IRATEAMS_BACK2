@@ -660,7 +660,7 @@ app.get("/chats",
         sql = `SELECT id_chat, username, urlFoto
         FROM chat INNER JOIN usuario ON chat.id_user1 = usuario.id_usuario OR chat.id_user2 =usuario.id_usuario
         WHERE id_usuario NOT LIKE 1 
-        AND (id_user1 = 1 OR id_user2 = 1)`;
+        AND (id_user1 = 1 OR id_user2 = 1)`; 
 
         connection.query(sql, function (err, result) {
             if (err) {
@@ -676,12 +676,8 @@ app.get("/chats",
 
 app.post("/chat",
     function (request, response) {
-<<<<<<< HEAD
         sql = `SELECT * FROM IRATEAMS.chat WHERE (id_user1 = ${request.body.id1} AND id_user2 = ${request.body.id2}) OR (id_user2 = ${request.body.id2} AND id_user1 = ${request.body.id1})`;
         
-=======
-        sql = `SELECT * FROM IRATEAMS.chat WHERE (id_user1 = ${request.body.id} AND id_user2 = ${request.body.id}) OR (id_user2 = ${request.body.id} AND id_user1 = ${request.body.id})`;
->>>>>>> modificacionApiChat
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log(err);
