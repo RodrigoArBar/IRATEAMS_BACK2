@@ -566,7 +566,14 @@ app.delete("/eventos", function(request, response)
 app.get("/chats",
     function (request, response) {
         url = "/chats?id=" + request.query.id;
-        sql = "SELECT id_chat, id_user1, id_user2, username, mail, nombreCompleto FROM IRATEAMS.chat JOIN IRATEAMS.evento ON (id_user2 =  id_creador) JOIN IRATEAMS.usuario ON (id_creador = id_usuario) WHERE id_user1 =" + request.query.id;
+        // sql = `SELECT id_chat, username, urlFoto
+        // FROM chat INNER JOIN usuario ON chat.id_user1 = usuario.id_usuario OR chat.id_user2 =usuario.id_usuario
+        // WHERE id_usuario NOT LIKE ${request.query.id} 
+        // AND (id_user1 = ${request.query.id} OR id_user2 = ${request.query.id})`;
+        sql = `SELECT id_chat, username, urlFoto
+        FROM chat INNER JOIN usuario ON chat.id_user1 = usuario.id_usuario OR chat.id_user2 =usuario.id_usuario
+        WHERE id_usuario NOT LIKE 1 
+        AND (id_user1 = 1 OR id_user2 = 1)`;
 
         connection.query(sql, function (err, result) {
             if (err) {
@@ -580,25 +587,18 @@ app.get("/chats",
         })
     })
 
-app.post("/chats",
+app.post("/chat",
     function (request, response) {
-        sql = `SELECT * FROM IRATEAMS.chat WHERE (id_user1 = ${request.body.id1} AND id_user2 = ${request.body.id2}) OR (id_user2 = ${request.body.id1} AND id_user1 = ${request.body.id2})`;
-        
+        sql = `SELECT * FROM IRATEAMS.chat WHERE (id_user1 = ${request.body.id} AND id_user2 = ${request.body.id}) OR (id_user2 = ${request.body.id} AND id_user1 = ${request.body.id})`;
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log(err);
                 respuesta = { err: true, msg: "Error al conectar con la base de datos", resultado: err }
                 response.status(500).send(respuesta);
-            } else 
-            {
-                // respuesta = {error:false, msg:"Chat creado correctamente", resultado:result}
-                // response.status(200).send(respuesta);
-                console.log(result)
-
+            } else {
                 if (result == "") {
                     sql = `INSERT INTO IRATEAMS.chat (id_user1, id_user2)
-                    VALUES ('${request.body.id1}', '${request.body.id2}')`;
-
+                VALUES ('${request.body.id_user1}', '${request.body.id_user2}')`;
 
                     connection.query(sql, function (err, result) {
                         if (err) {
@@ -610,18 +610,17 @@ app.post("/chats",
                             response.status(200).send(respuesta);
                         }
                     })
-                }else if(result != ""){
-                    
-                    respuesta = { err: false, msg: "El chat ya esta creado", resultado: result }
-                    response.status(200).send(respuesta)
+                } else if (result != "") {
+                    respuesta = {error:false, msg:"El chat ya está creado", resultado:result}
+                    response.status(200).send(respuesta);
                 }
             }
         })
     })
 
-app.delete("/chats",
+app.delete("/chat",
     function (request, response) {
-        sql = `DELETE FROM IRATEAMS.chat WHERE id_chat=${request.body.id}`
+        sql = `DELETE FROM chat WHERE id_chat=${request.body.id}`
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log(err);
@@ -639,8 +638,8 @@ app.delete("/chats",
 app.get("/mensajes",
     function (request, response) {
         url = "/mensajes?id=" + request.query.id;
-        sql = "SELECT * FROM IRATEAMS.mensajes JOIN IRATEAMS.chat ON (mensajes.id_chat = chat.id_chat) JOIN IRATEAMS.evento ON (id_user2 = id_creador) JOIN IRATEAMS.usuario ON (id_creador = id_usuario) WHERE chat.id_chat = " + request.query.id;
-        connection.query(sql, function (err, result) {
+        sql = `SELECT * FROM mensajes WHERE id_chat = ${request.query.id}`;
+           connection.query(sql, function (err, result) {
             if (err) {
                 console.log(err);
                 respuesta = { err: true, msg: "Error al conectar con la base de datos", resultado: err }
@@ -655,8 +654,8 @@ app.get("/mensajes",
 app.post("/mensajes",
     function (request, response) {
 
-        sql = `INSERT INTO IRATEAMS.mensajes (id_chat, id_emisor, mensaje, fecha)
-        VALUES ('${request.body.id_chat}', '${request.body.id_emisor}', '${request.body.mensaje}', '${request.body.fecha}')`;
+        sql = `INSERT INTO mensajes (id_chat, id_emisor, mensaje, fecha)
+    VALUES ('${request.body.id_chat}', '${request.body.id_emisor}', '${request.body.mensaje}', '${request.body.fecha}')`;
 
         connection.query(sql, function (err, result) {
             if (err) {
@@ -669,7 +668,6 @@ app.post("/mensajes",
             }
         })
     })
-
 
 // app.delete("/mensajes/:id",
 // function(request, response)
