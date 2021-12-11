@@ -657,7 +657,7 @@ app.get("/chats",
         // FROM chat INNER JOIN usuario ON chat.id_user1 = usuario.id_usuario OR chat.id_user2 =usuario.id_usuario
         // WHERE id_usuario NOT LIKE ${request.query.id} 
         // AND (id_user1 = ${request.query.id} OR id_user2 = ${request.query.id})`;
-        sql = `SELECT id_chat, username, urlFoto
+        sql = `SELECT id_chat, username, urlFoto, nombreCompleto
         FROM chat INNER JOIN usuario ON chat.id_user1 = usuario.id_usuario OR chat.id_user2 =usuario.id_usuario
         WHERE id_usuario NOT LIKE 1 
         AND (id_user1 = 1 OR id_user2 = 1)`; 
