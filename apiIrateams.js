@@ -618,7 +618,7 @@ app.post("/apuntados", function(request, response)
 })
 
 // DELETE apuntados
-app.delete("/eventos", function(request, response)
+app.delete("/apuntados", function(request, response)
 {
     
 
