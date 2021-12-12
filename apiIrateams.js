@@ -623,7 +623,7 @@ app.delete("/apuntados", function(request, response)
     
 
     let id_usuario = request.body.id_usuario;
-    let id_evento = request.body.evento;
+    let id_evento = request.body.id_evento;
     console.log(id)
 
     let respuesta;
