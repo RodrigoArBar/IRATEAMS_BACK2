@@ -622,12 +622,13 @@ app.delete("/eventos", function(request, response)
 {
     
 
-    let id = request.body.id_usuario
+    let id_usuario = request.body.id_usuario;
+    let id_evento = request.body.evento;
     console.log(id)
 
     let respuesta;
 
-    let sql2 = "DELETE FROM evento WHERE id_evento="+id
+    let sql2 = "DELETE FROM IRATEAMS.apuntados WHERE id_evento="+ id_evento +" AND id_usuario="+id_usuario
 
     connection.query(sql2, function(err,result){
 
