@@ -488,10 +488,11 @@ app.delete("/eventos", function(request, response)
 app.get("/filtroHome", function(request, response)
 {  
     let where = ""
-    let filtro1 = request.body.filtro1
-    let filtro2 = request.body.filtro2
-    let filtro3 = request.body.filtro3
+    let filtro1 = request.query.filtro1
+    let filtro2 = request.query.filtro2
+    let filtro3 = request.query.filtro3
     let params = []
+    
     
     if (filtro1 != ""&& filtro1 != null){
         if(where === ""){
@@ -537,6 +538,7 @@ app.get("/filtroHome", function(request, response)
             }
         }
     });
+    
 })
 
 
