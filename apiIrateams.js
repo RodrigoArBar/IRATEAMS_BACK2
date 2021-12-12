@@ -628,7 +628,7 @@ app.delete("/apuntados", function(request, response)
 
     let respuesta;
 
-    let sql2 = "DELETE FROM IRATEAMS.apuntados WHERE id_evento="+ id_evento +" AND id_usuario="+id_usuario
+    let sql2 = "DELETE FROM IRATEAMS.apuntados WHERE id_evento="+id_evento+" AND id_usuario="+id_usuario
 
     connection.query(sql2, function(err,result){
 
