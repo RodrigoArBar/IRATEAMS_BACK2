@@ -656,7 +656,7 @@ app.delete("/apuntados", function(request, response)
 app.get("/chats",
     function (request, response) {
         url = "/chats?id=" + request.query.id;
-        sql = `SELECT id_chat, username, urlFoto
+        sql = `SELECT id_chat, username, nombreCompleto, urlFoto
         FROM chat INNER JOIN usuario ON chat.id_user1 = usuario.id_usuario OR chat.id_user2 =usuario.id_usuario
         WHERE id_usuario NOT LIKE ${request.query.id} 
         AND (id_user1 = ${request.query.id} OR id_user2 = ${request.query.id})`;
