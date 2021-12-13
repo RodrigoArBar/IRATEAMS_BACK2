@@ -375,7 +375,10 @@ app.post("/eventos", function(request, response)
 
 
     let sql = `INSERT INTO evento(deporte, titulo, id_creador, nPersSolicitadas, fecha, direccion, localidad, descripcion, material, pago, urlFotoEvento) 
-                VALUES(\"${request.body.deporte}\", \"${request.body.titulo}\", \"${request.body.id_creador}\", \"${request.body.nPersSolicitadas}\", \"${request.body.fecha}\", \"${request.body.direccion}\", \"${request.body.localidad}\", \"${request.body.descripcion}\", \"${request.body.material}\", \"${request.body.pago}\", \"${request.body.urlFotoEvento}\")`
+                VALUES(\"${request.body.deporte}\", \"${request.body.titulo}\", \"${request.body.id_creador}\", 
+                        \"${request.body.nPersSolicitadas}\", \"${request.body.fecha}\", \"${request.body.direccion}\",
+                        \"${request.body.localidad}\", \"${request.body.descripcion}\", \"${request.body.material}\", 
+                        \"${request.body.pago}\", \"${request.body.urlFotoEvento}\")`
 
     connection.query(sql, function(err,result)
     {
