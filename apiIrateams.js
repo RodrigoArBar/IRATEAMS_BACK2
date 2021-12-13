@@ -237,7 +237,7 @@ app.get("/historial", function(request, response)
     let id = request.query.id;
     let params =[id];
 
-    let sql = "SELECT titulo, fecha, direccion, localidad FROM IRATEAMS.evento AS ev JOIN apuntados AS ap ON (ev.id_evento = ap.id_evento) JOIN usuario AS us ON (ap.id_usuario = us.id_usuario) WHERE us.id_usuario = ? AND  fecha < CURDATE();" 
+    let sql = "SELECT id_evento, titulo, fecha, direccion, localidad FROM IRATEAMS.evento AS ev JOIN apuntados AS ap ON (ev.id_evento = ap.id_evento) JOIN usuario AS us ON (ap.id_usuario = us.id_usuario) WHERE us.id_usuario = ? AND  fecha < CURDATE();" 
 
     connection.query(sql,params,function(err, result)
     {
@@ -265,7 +265,7 @@ app.get("/calendario", function(request, response)
     let id = request.query.id;
     let params =[id];
 
-    let sql = "SELECT titulo, fecha, direccion, localidad FROM IRATEAMS.evento AS ev JOIN apuntados AS ap ON (ev.id_evento = ap.id_evento) JOIN usuario AS us ON (ap.id_usuario = us.id_usuario) WHERE us.id_usuario = ? AND  fecha >= CURDATE();" 
+    let sql = "SELECT id_evento, titulo, fecha, direccion, localidad FROM IRATEAMS.evento AS ev JOIN apuntados AS ap ON (ev.id_evento = ap.id_evento) JOIN usuario AS us ON (ap.id_usuario = us.id_usuario) WHERE us.id_usuario = ? AND  fecha >= CURDATE();" 
 
     connection.query(sql,params,function(err, result)
     {
