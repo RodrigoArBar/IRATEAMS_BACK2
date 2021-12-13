@@ -592,8 +592,9 @@ app.post("/apuntados", function(request, response)
     }
 
 
-    let sql = `INSERT INTO apuntados(id_usuario, id_evento) 
+    let sql = `INSERT INTO IRATEAMS.apuntados(id_usuario, id_evento) 
                 VALUES(\"${request.body.id_usuario}\", \"${request.body.id_evento}\")`
+
 
     // let sql = `INSERT INTO evento( localidad, descripcion, material, pago ) 
     // VALUES(\"${request.body.deporte}\", \"${request.body.titulo}\")`
@@ -622,13 +623,12 @@ app.delete("/apuntados", function(request, response)
 {
     
 
-    let id_usuario = request.body.id_usuario;
-    let id_evento = request.body.id_evento;
-    console.log(id)
+    // let id_usuario = request.body.id_usuario;
+    // let id_evento = request.body.id_evento;
 
     let respuesta;
 
-    let sql2 = "DELETE FROM IRATEAMS.apuntados WHERE id_evento="+id_evento+" AND id_usuario="+id_usuario
+    let sql2 = `DELETE FROM IRATEAMS.apuntados WHERE id_evento= ${request.body.id_usuario} AND id_usuario=  ${request.body.id_evento}`
 
     connection.query(sql2, function(err,result){
 
